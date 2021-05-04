@@ -1,0 +1,238 @@
+openapi: 3.0.0
+info:
+    version: 1.0.0
+    title: test-service
+servers:
+    - url: http://localhost:3010
+paths:
+    /health:
+        get:
+            tags:
+                - health
+            description: verifies the health of the auth-service
+            operationId: healthCheck
+            responses:
+                200:
+                    description: Service is healthy
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+    /v1/test:
+        get:
+            tags:
+                - test.v1
+            description: Gets test message
+            operationId: getTestMessageV1
+            responses:
+                200:
+                    description: Test message came through
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        post:
+            tags:
+                - test.v1
+            description: Creates test message
+            operationId: createTestMessageV1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+            responses:
+                201:
+                    description: Test message created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+    /v1/test/:id:
+        parameters:
+            - name: id
+              in: path
+              description: test message id
+              required: true
+              schema:
+                  type: string
+        put:
+            tags:
+                - test.v1
+            description: Updates test message
+            operationId: updateTestMessageV1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+            responses:
+                200:
+                    description: Test message updated
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        delete:
+            tags:
+                - test.v1
+            description: Test message deleted
+            operationId: deleteTestMessageV1
+            responses:
+                200:
+                    description: Test message deleted
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+    /v2/test:
+        get:
+            tags:
+                - test.v2
+            description: Gets test message
+            operationId: getTestMessageV2
+            responses:
+                200:
+                    description: Test message came through
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        post:
+            tags:
+                - test.v2
+            description: Creates test message
+            operationId: createTestMessageV2
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+            responses:
+                201:
+                    description: Test message created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+    /v2/test/:id:
+        parameters:
+            - name: id
+              in: path
+              description: test message id
+              required: true
+              schema:
+                  type: string
+        put:
+            tags:
+                - test.v2
+            description: Updates test message
+            operationId: updateTestMessageV2
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+            responses:
+                200:
+                    description: Test message updated
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        delete:
+            tags:
+                - test.v2
+            description: Test message deleted
+            operationId: deleteTestMessageV2
+            responses:
+                200:
+                    description: Test message deleted
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiResponse"
+                default:
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+components:
+    schemas:
+        Error:
+            required:
+                - code
+                - message
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+        ApiResponse:
+            required:
+                - message
+            properties:
+                message:
+                    type: string
